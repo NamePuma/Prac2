@@ -1,0 +1,39 @@
+﻿<Page x:Class="OleshkinaHZ.ShowVizit"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OleshkinaHZ"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ShowVizit">
+
+    <Grid Background="LightCoral">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ListView ItemsSource="{Binding ShowVizits}" Name="listVizit" Background="LightCoral">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="3" BorderBrush="LightGoldenrodYellow">
+                        <StackPanel>
+                            <Label Content="{Binding login}" />
+                            <Label Content="{Binding Appointment1.date}"/>
+                            <Label Content="{Binding Group1.group1}"/>
+                            <Label Content="{Binding status}"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="Тип"/>
+            <CheckBox Name="HasGroup" />
+            <TextBlock Text="Подразделение"/>
+            <TextBox Name="Appoiments"/>
+            <TextBlock Text="Статус"/>
+            <CheckBox Name="HasSataus"/>
+        </StackPanel>
+    </Grid>
+</Page>

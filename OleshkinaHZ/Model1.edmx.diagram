@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bd4e263e446a42718d6651647245c78e" Name="Diagram1">
+        <EntityTypeShape EntityType="OleshkinaModel.Appointment" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OleshkinaModel.Department" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OleshkinaModel.Division" Width="1.5" PointX="1.375" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OleshkinaModel.Employee" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OleshkinaModel.Group" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OleshkinaModel.User" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OleshkinaModel.Vizit" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="OleshkinaModel.FK__Appointmen__code__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="OleshkinaModel.FK__Vizit__appointme__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="OleshkinaModel.FK__Employee__depart__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="OleshkinaModel.FK__Employee__divisi__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="OleshkinaModel.FK__Vizit__group__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="OleshkinaModel.FK__Vizit__login__72C60C4A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

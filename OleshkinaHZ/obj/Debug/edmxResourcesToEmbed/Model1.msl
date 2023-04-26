@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище OleshkinaModelContainer" CdmEntityContainer="Oleshkina">
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="OleshkinaModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointment">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="OleshkinaModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="department1" ColumnName="department" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Divisions">
+      <EntityTypeMapping TypeName="OleshkinaModel.Division">
+        <MappingFragment StoreEntitySet="Division">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="division1" ColumnName="division" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="OleshkinaModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="CodeEmployee" ColumnName="CodeEmployee" />
+          <ScalarProperty Name="FIO" ColumnName="FIO" />
+          <ScalarProperty Name="division" ColumnName="division" />
+          <ScalarProperty Name="department" ColumnName="department" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="OleshkinaModel.Group">
+        <MappingFragment StoreEntitySet="Group">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="group1" ColumnName="group" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="OleshkinaModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FIO" ColumnName="FIO" />
+          <ScalarProperty Name="Telefonia" ColumnName="Telefonia" />
+          <ScalarProperty Name="E_mail" ColumnName="E-mail" />
+          <ScalarProperty Name="DateB" ColumnName="DateB" />
+          <ScalarProperty Name="Passport" ColumnName="Passport" />
+          <ScalarProperty Name="BlackList" ColumnName="BlackList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vizits">
+      <EntityTypeMapping TypeName="OleshkinaModel.Vizit">
+        <MappingFragment StoreEntitySet="Vizit">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="appointment" ColumnName="appointment" />
+          <ScalarProperty Name="group" ColumnName="group" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
