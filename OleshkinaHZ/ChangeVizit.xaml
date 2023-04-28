@@ -1,0 +1,22 @@
+﻿<Window x:Class="OleshkinaHZ.ChangeVizit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OleshkinaHZ"
+        mc:Ignorable="d"
+        Title="ChangeVizit" Height="450" Width="800">
+    <Grid Background="LightGray">
+        <StackPanel>
+            <TextBlock Text="{Binding Vizit.login}"></TextBlock>
+            <TextBlock Text="{Binding Vizit.Appointment1.Employee.Department1.department1}"></TextBlock>
+            <TextBlock Text="{Binding Vizit.Group1.group1}"></TextBlock>
+            <TextBlock Text="Статус"></TextBlock>
+            <RadioButton Content="TRUE" IsChecked="{Binding Vizit.status}" Name="isCan" GroupName="status" />
+            <RadioButton Content="FALSE" Name="isNot" GroupName="status" />
+            <DatePicker Name="date" SelectedDate="{Binding Vizit.Appointment1.date}"></DatePicker>
+            <Button Content="Сохранить" Click="Save"></Button>
+            <Button Margin="0 20 0 0" Click="Button_Click" Content="Не сохранять"/> 
+        </StackPanel>
+    </Grid>
+</Window>

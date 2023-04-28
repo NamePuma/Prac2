@@ -25,3 +25,5 @@ C:\Users\student\source\repos\OleshkinaHZ\OleshkinaHZ\obj\Debug\EnterEmploye.g.c
 C:\Users\student\source\repos\OleshkinaHZ\OleshkinaHZ\obj\Debug\EnterEmploye.baml
 C:\Users\student\source\repos\OleshkinaHZ\OleshkinaHZ\obj\Debug\ShowVizit.g.cs
 C:\Users\student\source\repos\OleshkinaHZ\OleshkinaHZ\obj\Debug\ShowVizit.baml
+C:\Users\student\source\repos\OleshkinaHZ\OleshkinaHZ\obj\Debug\ChangeVizit.g.cs
+C:\Users\student\source\repos\OleshkinaHZ\OleshkinaHZ\obj\Debug\ChangeVizit.baml

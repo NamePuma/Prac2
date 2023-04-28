@@ -13,13 +13,13 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ListView ItemsSource="{Binding ShowVizits}" Name="listVizit" Background="LightCoral">
+        <ListView ItemsSource="{Binding ShowVizits}" Name="ListVizit" Background="LightCoral">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="3" BorderBrush="LightGoldenrodYellow">
                         <StackPanel>
                             <Label Content="{Binding login}" />
-                            <Label Content="{Binding Appointment1.date}"/>
+                            <Label Content="{Binding Appointment1.Employee.Department1.department1}"/>
                             <Label Content="{Binding Group1.group1}"/>
                             <Label Content="{Binding status}"/>
                         </StackPanel>
@@ -28,12 +28,27 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Grid.Column="1">
-            <TextBlock Text="Тип"/>
-            <CheckBox Name="HasGroup" />
+            <TextBlock Text="Есть группа"/>
+            <ComboBox Name="HasGroup" SelectionChanged="HasGroup_SelectionChanged">
+                <ComboBoxItem>
+                    <TextBlock Name="has" Text="Нету"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Name="none" Text="есть"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Name="all" Text="Все"/>
+                </ComboBoxItem>
+            </ComboBox>
             <TextBlock Text="Подразделение"/>
-            <TextBox Name="Appoiments"/>
-            <TextBlock Text="Статус"/>
-            <CheckBox Name="HasSataus"/>
+            <TextBox TextChanged="Appoiments_TextChanged" Name="Appoiments"/>
+            <TextBlock Text="Все"/>
+            <RadioButton GroupName="isStatus" Checked="HasSataus_Checked" Unchecked="HasSataus_Unchecked" Name="Defoult"/>
+            <TextBlock Text="Принятые"/>
+            <RadioButton GroupName="isStatus" Checked="HasSataus_Checked" Unchecked="HasSataus_Unchecked" Name="HasStatus"/>
+            <TextBlock Text="Отклоненые"/>
+            <RadioButton GroupName="isStatus" Checked="HasSataus_Checked" Unchecked="HasSataus_Unchecked" Name="NoStatus"></RadioButton>
+            <Button Margin="0 30 0 0" Content="ИЗМЕНИТЬ" Click="Change_Vizit"/>
         </StackPanel>
     </Grid>
 </Page>

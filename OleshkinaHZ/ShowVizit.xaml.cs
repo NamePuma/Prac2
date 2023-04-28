@@ -27,24 +27,123 @@ namespace OleshkinaHZ
             InitializeComponent();
             DataContext = this;
         }
-        private void filter(ListView showVizit,CheckBox hasGroup, TextBox appoiment, CheckBox hasStatus)
+        private void filter(ListView showVizit,ComboBox hasGroup, TextBox appoiment, RadioButton allStatus, RadioButton hasStatus, RadioButton noStatus)
         {
             string appoimentText = appoiment.Text.Trim();
-            var viewVizit = CollectionViewSource.GetDefaultView(showVizit);
+            var viewVizit = CollectionViewSource.GetDefaultView(showVizit.ItemsSource);
             if(viewVizit == null) { return; }
-            //viewVizit.Filter = new Predicate<object>(o =>
-            //{
-            //    Vizit listVizit = o as Vizit;
-            //    if(showVizit == null) { return false; }
+            viewVizit.Filter = new Predicate<object>(o =>
+            {
+                Vizit listVizit = o as Vizit;
+                if (showVizit == null) { return false; }
 
-            //    bool isValue = true;
+                bool isValue = true;
 
-            //    if (appoimentText.Length >= 0)
-            //    {
-            //        isValue = listVizit.Appointment1.code.IndexOf(appoimentText) > -1 
-            //    }
-            //}
-            //);
+                if (appoimentText.Length >= 0)
+                {
+                    isValue = listVizit.Appointment1.Employee.Department1.department1.IndexOf(appoimentText) > -1;
+                }
+
+
+
+                if(hasStatus.IsChecked == true)
+                {
+                    if(listVizit.status == false)
+                    {
+                        isValue = false;
+                    }
+                }
+                if(allStatus.IsChecked == true) 
+                {
+                    
+                }
+                if(noStatus.IsChecked == true)
+                {
+                    if(listVizit.status == true)
+                    {
+                        isValue = false;
+                    }
+                }
+
+
+
+                if(hasGroup.SelectedIndex == 0)
+                {
+                    if(listVizit.Group1 != null)
+                    {
+                        isValue = false;
+                    }
+                }
+                else if (hasGroup.SelectedIndex == 1)
+                {
+                    if (listVizit.Group1 == null)
+                        {
+                            isValue = false;
+                        }
+                }
+                else if(hasGroup.SelectedIndex == 2)
+                {
+                    
+                }
+                return isValue;
+            }
+            );
+
+            
+        }
+
+        private void Appoiments_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filter(ListVizit, HasGroup, Appoiments, Defoult, HasStatus, NoStatus);
+        }
+
+        private void HasSataus_Checked(object sender, RoutedEventArgs e)
+        {
+            filter(ListVizit, HasGroup, Appoiments, Defoult, HasStatus, NoStatus);
+        }
+
+        private void HasSataus_Unchecked(object sender, RoutedEventArgs e)
+        {
+            filter(ListVizit, HasGroup, Appoiments, Defoult, HasStatus, NoStatus);
+        }
+
+        private void HasGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            filter(ListVizit, HasGroup, Appoiments, Defoult, HasStatus, NoStatus);
+        }
+
+        private void Change_Vizit(object sender, RoutedEventArgs e)
+        {
+            if (checkSelection(ListVizit) == false)
+            {
+                MessageBox.Show("Выберете заявку");
+                return;
+            }
+            newWindow(ListVizit);
+        }
+        private bool checkSelection(ListView listView)
+        {
+            if(listView.SelectedItem != null) 
+            {
+                return true;
+            }
+            return false;
+        }
+        private void newWindow(ListView listView)
+        {
+            var correntVizit = listView.SelectedItem as Vizit;
+            if(correntVizit.User.BlackList == false)
+            {
+                ChangeVizit vizit = new ChangeVizit(correntVizit);
+                vizit.ShowDialog();
+            }
+            else
+            {
+                ChangeVizit vizit = new ChangeVizit(correntVizit, true);
+                vizit.ShowDialog();
+            }
+            ShowVizits = new ObservableCollection<Vizit>(ControlsClasses.Connect.Vizits.ToList());
+            listView.ItemsSource = ShowVizits;
         }
     }
 }

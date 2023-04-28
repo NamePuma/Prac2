@@ -67,6 +67,9 @@
     <Compile Include="Appointment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChangeVizit.xaml.cs">
+      <DependentUpon>ChangeVizit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ControlsClasses.cs" />
     <Compile Include="Department.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -97,6 +100,10 @@
     <Compile Include="Vizit.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Page Include="ChangeVizit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EnterEmploye.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

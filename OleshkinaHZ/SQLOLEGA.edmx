@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище OleshkinaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="division" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="CodeEmployee" />
+          </Key>
+          <Property Name="CodeEmployee" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FIO" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="division" Type="int" />
+          <Property Name="department" Type="int" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FIO" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Telefonia" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="E-mail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DateB" Type="date" Nullable="false" />
+          <Property Name="Passport" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="BlackList" Type="bit" />
+        </EntityType>
+        <EntityType Name="Vizit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="255" />
+          <Property Name="appointment" Type="int" Nullable="false" />
+          <Property Name="group" Type="int" />
+          <Property Name="status" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Appointmen__code__6B24EA82">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="CodeEmployee" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__depart__5812160E">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__divisi__571DF1D5">
+          <End Role="Division" Type="Self.Division" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vizit__appointme__73BA3083">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
+          <End Role="Vizit" Type="Self.Vizit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vizit">
+              <PropertyRef Name="appointment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vizit__group__74AE54BC">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Vizit" Type="Self.Vizit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vizit">
+              <PropertyRef Name="group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vizit__login__72C60C4A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Vizit" Type="Self.Vizit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Vizit">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище OleshkinaModelContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vizit" EntityType="Self.Vizit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Appointmen__code__6B24EA82" Association="Self.FK__Appointmen__code__6B24EA82">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__depart__5812160E" Association="Self.FK__Employee__depart__5812160E">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__divisi__571DF1D5" Association="Self.FK__Employee__divisi__571DF1D5">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vizit__appointme__73BA3083" Association="Self.FK__Vizit__appointme__73BA3083">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="Vizit" EntitySet="Vizit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vizit__group__74AE54BC" Association="Self.FK__Vizit__group__74AE54BC">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Vizit" EntitySet="Vizit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vizit__login__72C60C4A" Association="Self.FK__Vizit__login__72C60C4A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Vizit" EntitySet="Vizit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OleshkinaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Appointmen__code__6B24EA82" FromRole="Appointment" ToRole="Employee" />
+          <NavigationProperty Name="Vizits" Relationship="Self.FK__Vizit__appointme__73BA3083" FromRole="Appointment" ToRole="Vizit" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__depart__5812160E" FromRole="Department" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="division1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__divisi__571DF1D5" FromRole="Division" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="CodeEmployee" />
+          </Key>
+          <Property Name="CodeEmployee" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="division" Type="Int32" />
+          <Property Name="department" Type="Int32" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointmen__code__6B24EA82" FromRole="Employee" ToRole="Appointment" />
+          <NavigationProperty Name="Department1" Relationship="Self.FK__Employee__depart__5812160E" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Division1" Relationship="Self.FK__Employee__divisi__571DF1D5" FromRole="Employee" ToRole="Division" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Vizits" Relationship="Self.FK__Vizit__group__74AE54BC" FromRole="Group" ToRole="Vizit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefonia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="E_mail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Passport" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BlackList" Type="Boolean" />
+          <NavigationProperty Name="Vizits" Relationship="Self.FK__Vizit__login__72C60C4A" FromRole="Users" ToRole="Vizit" />
+        </EntityType>
+        <EntityType Name="Vizit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="appointment" Type="Int32" Nullable="false" />
+          <Property Name="group" Type="Int32" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Appointment1" Relationship="Self.FK__Vizit__appointme__73BA3083" FromRole="Vizit" ToRole="Appointment" />
+          <NavigationProperty Name="Group1" Relationship="Self.FK__Vizit__group__74AE54BC" FromRole="Vizit" ToRole="Group" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Vizit__login__72C60C4A" FromRole="Vizit" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Appointmen__code__6B24EA82">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="CodeEmployee" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vizit__appointme__73BA3083">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
+          <End Role="Vizit" Type="Self.Vizit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vizit">
+              <PropertyRef Name="appointment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__depart__5812160E">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__divisi__571DF1D5">
+          <End Role="Division" Type="Self.Division" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="division" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vizit__group__74AE54BC">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Vizit" Type="Self.Vizit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vizit">
+              <PropertyRef Name="group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vizit__login__72C60C4A">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Vizit" Type="Self.Vizit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Vizit">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OleshkinaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Divisions" EntityType="Self.Division" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Groups" EntityType="Self.Group" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Vizits" EntityType="Self.Vizit" />
+          <AssociationSet Name="FK__Appointmen__code__6B24EA82" Association="Self.FK__Appointmen__code__6B24EA82">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vizit__appointme__73BA3083" Association="Self.FK__Vizit__appointme__73BA3083">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="Vizit" EntitySet="Vizits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__depart__5812160E" Association="Self.FK__Employee__depart__5812160E">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__divisi__571DF1D5" Association="Self.FK__Employee__divisi__571DF1D5">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vizit__group__74AE54BC" Association="Self.FK__Vizit__group__74AE54BC">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Vizit" EntitySet="Vizits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vizit__login__72C60C4A" Association="Self.FK__Vizit__login__72C60C4A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Vizit" EntitySet="Vizits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище OleshkinaModelContainer" CdmEntityContainer="OleshkinaEntities">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="OleshkinaModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="OleshkinaModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="department1" ColumnName="department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Divisions">
+            <EntityTypeMapping TypeName="OleshkinaModel.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="division1" ColumnName="division" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="OleshkinaModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="CodeEmployee" ColumnName="CodeEmployee" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="division" ColumnName="division" />
+                <ScalarProperty Name="department" ColumnName="department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="OleshkinaModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="group1" ColumnName="group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OleshkinaModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Telefonia" ColumnName="Telefonia" />
+                <ScalarProperty Name="E_mail" ColumnName="E-mail" />
+                <ScalarProperty Name="DateB" ColumnName="DateB" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="BlackList" ColumnName="BlackList" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vizits">
+            <EntityTypeMapping TypeName="OleshkinaModel.Vizit">
+              <MappingFragment StoreEntitySet="Vizit">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="appointment" ColumnName="appointment" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

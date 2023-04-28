@@ -13,7 +13,5 @@ namespace OleshkinaHZ
         #endregion
         public static EnterEmploye EnterEmploye { get; set; } = new EnterEmploye();
         public static ShowVizit ShowVizit { get; set; } = new ShowVizit();
-               
-        
     }
 }
