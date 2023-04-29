@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="OleshkinaModel.Employee" Width="1.5" PointX="3.375" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="OleshkinaModel.Group" Width="1.5" PointX="5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="OleshkinaModel.User" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="OleshkinaModel.Vizit" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OleshkinaModel.Vizit" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="OleshkinaModel.FK__Appointmen__code__6B24EA82" ManuallyRouted="false" />
         <AssociationConnector Association="OleshkinaModel.FK__Vizit__appointme__73BA3083" ManuallyRouted="false" />
         <AssociationConnector Association="OleshkinaModel.FK__Employee__depart__5812160E" ManuallyRouted="false" />

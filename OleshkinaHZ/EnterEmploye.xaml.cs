@@ -21,6 +21,7 @@ namespace OleshkinaHZ
     /// </summary>
     public partial class EnterEmploye : Page
     {
+        private string division { get; set; }
         public EnterEmploye()
         {
             InitializeComponent();
@@ -34,7 +35,11 @@ namespace OleshkinaHZ
             {
                 if (code.Text == codeEmploye.CodeEmployee)
                 {
-                    return true;
+                    if (codeEmploye.Division1 != null)
+                    {
+                        division = codeEmploye.Division1.division1;
+                        return true;
+                    }
                 }
             }
             MessageBox.Show("NO");
@@ -50,7 +55,15 @@ namespace OleshkinaHZ
             bool can = checkedData(Code);
             if(can)
             {
-                GoPage(ControlsClasses.ShowVizit);
+                string code = Code.Text.Trim();
+                if (division == "Охрана")
+                {
+                    MessageBox.Show("Охрана");
+                }
+                else if (division == "Общий отдел")
+                {
+                    GoPage(ControlsClasses.ShowVizit);
+                }
             }
         }
     }

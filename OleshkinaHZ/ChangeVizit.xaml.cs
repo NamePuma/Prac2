@@ -19,19 +19,13 @@ namespace OleshkinaHZ
     /// </summary>
     public partial class ChangeVizit : Window
     {
+        public bool can { get; set; }
         public Vizit Vizit { get; set; }
-        public ChangeVizit(Vizit vizit, bool blackList = false)
+        public ChangeVizit(Vizit vizit)
         {
             InitializeComponent();
-            Vizit = vizit;
-            if (blackList == true)
-            {
-                isCan.Visibility = Visibility.Hidden;
-                Vizit.status = false;
-                ControlsClasses.Connect.SaveChanges();
-
-            }
             Init(vizit, isCan, isNot); 
+            Vizit = vizit;
             DataContext = this;
 
         }
@@ -40,15 +34,25 @@ namespace OleshkinaHZ
            if(vizit.status == true)
             {
                 isCan.IsChecked = true;
+                can = true;
             }
             else
             {
                 isNot.IsChecked = true;
+                can = false;
             }
         }
 
         private void Save(object sender, RoutedEventArgs e)
         {
+            if (can)
+            {
+                Console.WriteLine($"{Vizit.User.Login} был принят" );
+            }
+            else
+            {
+                Console.WriteLine($"{Vizit.User.Login} не был принят");
+            }
             ControlsClasses.Connect.SaveChanges();
             Close();
         }

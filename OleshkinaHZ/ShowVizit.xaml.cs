@@ -21,17 +21,61 @@ namespace OleshkinaHZ
     /// </summary>
     public partial class ShowVizit : Page
     {
-        public ObservableCollection<Vizit> ShowVizits { get; set; } = new ObservableCollection<Vizit>(ControlsClasses.Connect.Vizits.ToList());
+        public ObservableCollection<Vizit> ShowVizits { get; set; }
+
+        private HashSet<int> blackGroup { get; set; } = new HashSet<int>();
         public ShowVizit()
         {
             InitializeComponent();
+            ShowVizits = new ObservableCollection<Vizit>(ControlsClasses.Connect.Vizits.ToList());
+            foreach (var i in ShowVizits)
+            {
+                if (i.Group1 != null)
+                {
+                    if (i.User.BlackList == true)
+                    {
+
+                        blackGroup.Add(i.Group1.id);
+                    }
+                }
+            }
+
+            ShowVizits = new ObservableCollection<Vizit>(ControlsClasses.Connect.Vizits.ToList().Where(e =>
+            {
+                foreach (var i in blackGroup)
+                {
+                    if (e.Group1 != null)
+                    {
+
+                        if (e.Group1.id == i)
+                        {
+                            e.status = false;
+                            Console.WriteLine($"Такой та{e.User.Login} отклонен");
+                            ControlsClasses.Connect.SaveChanges();
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if(e.User.BlackList == true)
+                        {
+                            e.status = false;
+                            ControlsClasses.Connect.SaveChanges();
+                            Console.WriteLine($"Такой та{e.User.Login} отклонен");
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }));
+
             DataContext = this;
         }
-        private void filter(ListView showVizit,ComboBox hasGroup, TextBox appoiment, RadioButton allStatus, RadioButton hasStatus, RadioButton noStatus)
+        private void filter(ListView showVizit, ComboBox hasGroup, TextBox appoiment, RadioButton allStatus, RadioButton hasStatus, RadioButton noStatus)
         {
             string appoimentText = appoiment.Text.Trim();
             var viewVizit = CollectionViewSource.GetDefaultView(showVizit.ItemsSource);
-            if(viewVizit == null) { return; }
+            if (viewVizit == null) { return; }
             viewVizit.Filter = new Predicate<object>(o =>
             {
                 Vizit listVizit = o as Vizit;
@@ -46,20 +90,20 @@ namespace OleshkinaHZ
 
 
 
-                if(hasStatus.IsChecked == true)
+                if (hasStatus.IsChecked == true)
                 {
-                    if(listVizit.status == false)
+                    if (listVizit.status == false)
                     {
                         isValue = false;
                     }
                 }
-                if(allStatus.IsChecked == true) 
+                if (allStatus.IsChecked == true)
                 {
-                    
+
                 }
-                if(noStatus.IsChecked == true)
+                if (noStatus.IsChecked == true)
                 {
-                    if(listVizit.status == true)
+                    if (listVizit.status == true)
                     {
                         isValue = false;
                     }
@@ -67,9 +111,9 @@ namespace OleshkinaHZ
 
 
 
-                if(hasGroup.SelectedIndex == 0)
+                if (hasGroup.SelectedIndex == 0)
                 {
-                    if(listVizit.Group1 != null)
+                    if (listVizit.Group1 != null)
                     {
                         isValue = false;
                     }
@@ -77,19 +121,21 @@ namespace OleshkinaHZ
                 else if (hasGroup.SelectedIndex == 1)
                 {
                     if (listVizit.Group1 == null)
-                        {
-                            isValue = false;
-                        }
+                    {
+                        isValue = false;
+                    }
                 }
-                else if(hasGroup.SelectedIndex == 2)
+                else if (hasGroup.SelectedIndex == 2)
                 {
-                    
+
                 }
+
+
                 return isValue;
             }
             );
 
-            
+
         }
 
         private void Appoiments_TextChanged(object sender, TextChangedEventArgs e)
@@ -110,6 +156,7 @@ namespace OleshkinaHZ
         private void HasGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             filter(ListVizit, HasGroup, Appoiments, Defoult, HasStatus, NoStatus);
+
         }
 
         private void Change_Vizit(object sender, RoutedEventArgs e)
@@ -123,7 +170,7 @@ namespace OleshkinaHZ
         }
         private bool checkSelection(ListView listView)
         {
-            if(listView.SelectedItem != null) 
+            if (listView.SelectedItem != null)
             {
                 return true;
             }
@@ -132,18 +179,12 @@ namespace OleshkinaHZ
         private void newWindow(ListView listView)
         {
             var correntVizit = listView.SelectedItem as Vizit;
-            if(correntVizit.User.BlackList == false)
-            {
                 ChangeVizit vizit = new ChangeVizit(correntVizit);
                 vizit.ShowDialog();
-            }
-            else
-            {
-                ChangeVizit vizit = new ChangeVizit(correntVizit, true);
-                vizit.ShowDialog();
-            }
-            ShowVizits = new ObservableCollection<Vizit>(ControlsClasses.Connect.Vizits.ToList());
-            listView.ItemsSource = ShowVizits;
+            
+          
+           
+
         }
     }
 }
